@@ -8,6 +8,7 @@ import org.lubchynsky.games.tictactoe.GameManager;
 import org.lubchynsky.games.tictactoe.controller.AbstractController;
 import org.lubchynsky.games.tictactoe.controller.GameWindow;
 import org.lubchynsky.games.tictactoe.controller.Login;
+import org.lubchynsky.games.tictactoe.controller.WinnerController;
 
 import java.io.IOException;
 
@@ -17,6 +18,13 @@ public class ViewFactory {
 
     public ViewFactory(GameManager gameManager) {
         this.gameManager = gameManager;
+    }
+
+    public void showWinnerWindow(){
+        WinnerController controller = new WinnerController(gameManager, this, "winner.fxml");
+        setView(controller);
+        String result = gameManager.checkForWinner()?String.format("%s wins!!!", gameManager.getPlayer()):"Draw :D";
+        controller.setFinalResult(result);
     }
 
     public void showLoginWindow(){
